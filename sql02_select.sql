@@ -65,3 +65,12 @@ select JOB from EMP;
 
 -- 중복 되지 않는 값들만 출력.
 select distinct JOB from EMP;
+
+-- distinct는 select 문장에서 한번만, 모든 컬럼 이름들보다 먼저 사용.
+select distinct JOB, DEPTNO
+from EMP;
+
+-- 직원 테이블(EMP)에서 중복되지 않는 부서번호(DEPTNO)와 직책(JOB)을 검색. 부서번호 오름차순으로 정렬
+select distinct DEPTNO, JOB
+from EMP
+order by DEPTNO;
