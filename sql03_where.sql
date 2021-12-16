@@ -107,4 +107,71 @@ from EMP
 where JOB not in ('CLERK', 'ANALYST', 'MANAGER')
 order by EMPNO;
 
--- 숫자, 날짜, 문자열 타입들은 모두 크기(대/소)
+-- 숫자, 날짜, 문자열 타입들은 모두 크기 (대/소) 비교가 가능.
+
+-- '1987/01/01' (포함) 이후에 입사한 사원들의 레코드(모든 컬럼)를 검색.
+-- 입사일 오름차순으로 출력.
+select *
+from EMP
+where HIREDATE >= '1987/01/01'
+order by HIREDATE;
+
+-- to_date(날짜 문자열, 날짜 포맷 문자열) : 문자열을 date 타입으로 변환.
+-- 연/월/일, 월/일/연(미국식), 일/월/연(영국식) YYYY/MM/DD
+-- 21/12/13, 13/12/21
+select *
+from EMP
+where HIREDATE >= to_date('87/01/01','RR/MM/DD')
+order by HIREDATE;
+
+-- 이름이 'D' 이후의 문자를 이름으로 갖는 직원들의 레코드를 검색. 이름의 오름차순으로 출력.
+select *
+from EMP
+where ENAME >= 'D'
+order by ENAME;
+
+-- 특정 문자(열)로 시작하는 단어를 검색
+-- 'A'로 시작하는 이름을 갖는 직원들의 이름을 오름차순으로 출력.
+select ENAME
+from EMP
+where ENAME like 'A%'  -- 이름(ENAME)의 글자 수 는 제한이 없고 A로 시작.
+order by ENAME;
+
+select ENAME
+from EMP
+where ENAME like 'A_' -- 이름이(ENAME)이 두 글자로 이루어져 있고, A로 시작.
+order by ENAME;
+
+select *
+from EMP
+where JOB like '_LERK';  -- ALERK, BLERK, CLERK, DLERK, ...
+
+-- 직원 이름에 'E'가 포함된 직원들의 레코드(모든 컬럼)를 검색. 이름 오름차순 출력.
+select *
+from EMP
+where ENAME like '%E%'
+order by ENAME;
+
+-- 30번 부서에서 일하는 직책이 SALES로 시작하는 직원들의
+-- 사번, 이름, 급여, 부서번호, 직책을 검색. 사번 오름차순 출력.
+select EMPNO, ENAME, SAL, DEPTNO, JOB
+from EMP
+where (DEPTNO = 30) and (JOB like 'SALES%')
+order by EMPNO;
+
+-- 20번, 30번 부서에서 일하는 직원들 중에서 급여가 2000을 초과하는
+-- 직원들의 사번, 부서번호, 이름, 급여를 검색
+-- 출력 순서 (1) 부서번호 오름차순 (2) 사번 오름차순
+select EMPNO, DEPTNO, ENAME, SAL
+from EMP
+where DEPTNO in (20, 30) and SAL > 2000
+order by DEPTNO, EMPNO;
+
+-- 수당이 null이고, 매니저는 있고(not null), 직책이 MANAGER 또는 CLERK인
+-- 직원들의 레코드를 검색. 사번 오름차순으로 출력.
+select *
+from EMP
+where COMM is null
+    and MGR is not null
+    and JOB in ('MANAGER', 'CLERK')
+order by EMPNO;
