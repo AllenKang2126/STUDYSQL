@@ -106,3 +106,5 @@ select EMPNO, ENAME, JOB, SAL
 from EMP
 where JOB not in ('CLERK', 'ANALYST', 'MANAGER')
 order by EMPNO;
+
+
