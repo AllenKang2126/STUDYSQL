@@ -107,4 +107,4 @@ from EMP
 where JOB not in ('CLERK', 'ANALYST', 'MANAGER')
 order by EMPNO;
 
-
+-- 숫자, 날짜, 문자열 타입들은 모두 크기(대/소)
